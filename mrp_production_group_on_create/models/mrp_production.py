@@ -3,7 +3,7 @@
 
 from dateutil.relativedelta import relativedelta
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 
 ENABLED_PARAM = "mrp_production_group_on_create.enabled"
 WINDOW_PARAM = "mrp_production_group_on_create.window_days"
@@ -142,13 +142,25 @@ class MrpProduction(models.Model):
     def _group_on_create_absorb(self, vals):
         """Add the new order quantity to this (existing) target order."""
         self.ensure_one()
-        new_qty = self.product_qty + vals.get("product_qty", 0.0)
+        added_qty = vals.get("product_qty", 0.0)
+        new_qty = self.product_qty + added_qty
         self.env["change.production.qty"].create(
             {"mo_id": self.id, "product_qty": new_qty}
         ).change_prod_qty()
         origin = vals.get("origin")
         if origin and origin not in (self.origin or ""):
             self.origin = (self.origin + "," + origin) if self.origin else origin
+        # Leave a trace on the target order for auditability.
+        self.message_post(
+            body=_(
+                "Grouped on creation: +%(added)s %(uom)s (origin: "
+                "%(origin)s). New total: %(total)s %(uom)s.",
+                added=added_qty,
+                uom=self.product_uom_id.name,
+                origin=origin or _("n/a"),
+                total=new_qty,
+            )
+        )
 
     # ------------------------------------------------------------------
     # Override
