@@ -42,17 +42,27 @@ class MrpProduction(models.Model):
         return self.bom_id.type == "subcontract"
 
     def _group_on_create_is_mto(self):
-        """Orders linked to a sale order / downstream demand (MTO) are excluded.
+        """Orders tied to a sale order (make-to-order) are excluded.
 
-        A manufacturing order feeding a downstream move (``move_dest_ids`` on
-        its finished moves) or whose procurement group is tied to a sale order
-        is considered make-to-order and left untouched.
+        Internal manufacturing demand (a child order whose output feeds a
+        parent's consumption) is *not* considered make-to-order and may be
+        grouped: only a downstream move linked to a sale order, or a
+        procurement group tied to a sale order, marks the order as MTO.
         """
         self.ensure_one()
         group = self.procurement_group_id
         if group and "sale_id" in group._fields and group.sale_id:
             return True
-        return bool(self.move_finished_ids.move_dest_ids)
+        for move in self.move_finished_ids.move_dest_ids:
+            if "sale_line_id" in move._fields and move.sale_line_id:
+                return True
+            if (
+                move.group_id
+                and "sale_id" in move.group_id._fields
+                and move.group_id.sale_id
+            ):
+                return True
+        return False
 
     def _group_on_create_qualifies(self):
         """Return whether an existing order may act as a grouping target."""
@@ -81,9 +91,6 @@ class MrpProduction(models.Model):
         # A grouping target can only be found when a scheduled start date is
         # provided; otherwise we cannot evaluate the time window.
         if not vals.get("date_start"):
-            return False
-        # Make-to-order values carry a downstream demand.
-        if vals.get("move_dest_ids"):
             return False
         bom = self.env["mrp.bom"].browse(vals["bom_id"])
         if bom.type == "subcontract":
