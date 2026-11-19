@@ -1,0 +1,57 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mrp_production_group_on_create
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: none\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#. module: mrp_production_group_on_create
+#: model:ir.model.fields,field_description:mrp_production_group_on_create.field_res_config_settings__grouping_on_create_enabled
+#: model_terms:ir.ui.view,arch_db:mrp_production_group_on_create.res_config_settings_view_form
+msgid "Group MOs on creation"
+msgstr "Agrupar OF al crear"
+
+#. module: mrp_production_group_on_create
+#: model_terms:ir.ui.view,arch_db:mrp_production_group_on_create.res_config_settings_view_form
+msgid ""
+"Group manually created manufacturing orders of the same product and bill of "
+"materials into a single order."
+msgstr ""
+"Agrupar las órdenes de fabricación creadas manualmente del mismo producto y "
+"lista de materiales en una única orden."
+
+#. module: mrp_production_group_on_create
+#: model:ir.model.fields,field_description:mrp_production_group_on_create.field_res_config_settings__grouping_on_create_window_days
+msgid "Grouping window (± days)"
+msgstr "Ventana de agrupación (± días)"
+
+#. module: mrp_production_group_on_create
+#: model:ir.model.fields,help:mrp_production_group_on_create.field_res_config_settings__grouping_on_create_window_days
+msgid ""
+"Number of days, before and after the scheduled start date, within which an "
+"existing order is considered a grouping target. 0 means the same day only."
+msgstr ""
+"Cantidad de días, antes y después de la fecha de inicio programada, dentro de "
+"los cuales una orden existente se considera un destino de agrupación. 0 "
+"significa solo el mismo día."
+
+#. module: mrp_production_group_on_create
+#: model:ir.model.fields,help:mrp_production_group_on_create.field_res_config_settings__grouping_on_create_enabled
+msgid ""
+"When creating a manufacturing order manually, look for an existing non-"
+"planned order with the same product and bill of materials within the "
+"configured window and add the quantity to it instead of creating a second "
+"order."
+msgstr ""
+"Al crear una orden de fabricación manualmente, busca una orden existente no "
+"planificada con el mismo producto y lista de materiales dentro de la ventana "
+"configurada y le suma la cantidad en lugar de crear una segunda orden."
