@@ -21,16 +21,6 @@ msgid "Group MOs on creation"
 msgstr "Agrupar OF al crear"
 
 #. module: mrp_production_group_on_create
-#: code:addons/mrp_production_group_on_create/models/mrp_production.py:0
-#, python-format
-msgid ""
-"Grouped on creation: +%(added)s %(uom)s (origin: %(origin)s). New total: "
-"%(total)s %(uom)s."
-msgstr ""
-"Agrupado al crear: +%(added)s %(uom)s (origen: %(origin)s). Nuevo total: "
-"%(total)s %(uom)s."
-
-#. module: mrp_production_group_on_create
 #: model_terms:ir.ui.view,arch_db:mrp_production_group_on_create.res_config_settings_view_form
 msgid ""
 "Group manually created manufacturing orders of the same product and bill of "
@@ -65,8 +55,3 @@ msgstr ""
 "Al crear una orden de fabricación manualmente, busca una orden existente no "
 "planificada con el mismo producto y lista de materiales dentro de la ventana "
 "configurada y le suma la cantidad en lugar de crear una segunda orden."
-
-#. module: mrp_production_group_on_create
-#: code:addons/mrp_production_group_on_create/models/mrp_production.py:0
-msgid "n/a"
-msgstr "n/d"

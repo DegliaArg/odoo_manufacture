@@ -153,11 +153,11 @@ class MrpProduction(models.Model):
         # Leave a trace on the target order for auditability.
         self.message_post(
             body=_(
-                "Grouped on creation: +%(added)s %(uom)s (origin: "
-                "%(origin)s). New total: %(total)s %(uom)s.",
+                "Agrupado al crear: +%(added)s %(uom)s (origen: "
+                "%(origin)s). Nuevo total: %(total)s %(uom)s.",
                 added=added_qty,
                 uom=self.product_uom_id.name,
-                origin=origin or _("n/a"),
+                origin=origin or _("n/d"),
                 total=new_qty,
             )
         )
